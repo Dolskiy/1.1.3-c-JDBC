@@ -23,7 +23,6 @@ public class UserDaoJDBCImpl implements UserDao {
     private static final String DELETE_USER = "DELETE FROM users WHERE id = ?";
     private static final String SELECT_ALL_USER = "SELECT * FROM users";
 
-
     public UserDaoJDBCImpl() {
     }
 
@@ -64,6 +63,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getMyConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER)) {
             preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate(); // Добавлен отсутствующий вызов
             LOGGER.info("User с id - " + id + " удален из базы данных");
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
